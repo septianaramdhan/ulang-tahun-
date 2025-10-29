@@ -2,352 +2,301 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ulang tahun pacar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ulang Tahun Pacarku 💖</title>
   <style>
-    :root{
-      --bg:#0b1020;
-      --card:#0f1724;
-      --accent:#ff6b6b;
-      --muted:#9aa4bd;
-      --wa:#25D366;
+    :root {
+      --bg: #0b1020;
+      --card: #0f1724;
+      --accent: #ff6b6b;
+      --muted: #9aa4bd;
+      --wa: #25D366;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:var(--bg);color:#fff}
-    body{display:flex;align-items:center;justify-content:center;padding:20px;background:
-      radial-gradient(circle at 10% 10%, #0f1530 0%, var(--bg) 40%), linear-gradient(180deg,#071028 0%, #071028 100%);}
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: radial-gradient(circle at 10% 10%, #0f1530 0%, var(--bg) 40%),
+                  linear-gradient(180deg,#071028 0%, #071028 100%);
+    }
 
-    /* LOGIN CARD */
-    .overlay{position:fixed;inset:0;background:rgba(3,6,15,0.65);display:flex;align-items:center;justify-content:center;padding:2rem}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter:blur(6px);width:420px;border-radius:14px;padding:30px;box-shadow:0 10px 30px rgba(2,6,23,0.7);border:1px solid rgba(255,255,255,0.04);text-align:center}
-    h2{margin:0 0 12px 0;font-size:22px}
-    p.lead{color:var(--muted);margin:0 0 18px 0}
-    label{display:block;font-size:13px;color:var(--muted);margin-top:8px;text-align:left}
-    input[type=text],input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin-top:6px}
-    button{margin-top:14px;width:100%;padding:10px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--accent),#ff9a9a);color:#0b1020;font-weight:700;cursor:pointer}
-    .note{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+    /* LOGIN */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,6,15,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 9999;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 28px;
+      text-align: center;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    h2 { margin: 0 0 10px; font-size: 22px; }
+    p.lead { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+    label { display: block; font-size: 13px; text-align: left; color: var(--muted); margin-top: 10px; }
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      margin-top: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--accent), #ff9a9a);
+      color: #0b1020;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
     /* STAGE */
-    .stage{width:100%;max-width:960px;height:640px;position:relative;overflow:hidden;border-radius:16px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 40px rgba(2,6,23,0.6)}
-    canvas#fw{position:absolute;inset:0;width:100%;height:100%}
-    .content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;padding:24px}
-    .greeting{pointer-events:auto;background:rgba(0,0,0,0.25);padding:18px 26px;border-radius:12px;text-align:center;max-width:720px;min-width:300px}
-    .greeting h1{font-size:38px;margin:0 0 8px 0;letter-spacing:1px}
-    .greeting p{margin:0;color:var(--muted)}
+    .stage {
+      width: 100%;
+      height: 100vh;
+      max-height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    canvas#fw {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
 
-    /* HIDDEN MESSAGE BOX */
+    .content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .greeting {
+      background: rgba(0,0,0,0.25);
+      padding: 18px;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 90%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .greeting h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    .greeting p { color: var(--muted); margin-bottom: 10px; }
+
+    /* Hidden message scroll */
     .hidden-message {
-      margin-top:14px;
-      padding:16px;
-      border-radius:12px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      max-width:720px;
-      width:100%;
-      box-shadow:0 6px 30px rgba(2,6,23,0.45);
-      transform: translateY(18px);
-      opacity: 0;
-      transition: all 600ms cubic-bezier(.2,.9,.2,1);
-    }
-    .hidden-message.show {
-      transform: translateY(0);
-      opacity:1;
-    }
-    .hidden-message .content-inner{
-      max-height: 55vh;         /* scroll only inside this box */
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      max-height: 50vh;
       overflow-y: auto;
       text-align: justify;
-      white-space: pre-wrap;
-      padding-right:6px;
-      line-height:1.6;
-      scroll-behavior: smooth;
+      line-height: 1.6;
+      transition: 0.5s ease;
     }
-    .hidden-message .content-inner::-webkit-scrollbar{ width:8px }
-    .hidden-message .content-inner::-webkit-scrollbar-thumb{ background: rgba(255,255,255,0.12); border-radius:6px }
-
-    /* WA BUTTON (green, animated) */
-    .wa-row { display:flex; justify-content:center; margin-top:12px; gap:10px }
-    .wa-btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:12px;
-      background:var(--wa);
-      color:#042; font-weight:800;
-      text-decoration:none;
-      transform: translateY(18px);
-      opacity:0;
-      transition: all 500ms cubic-bezier(.2,.9,.2,1);
-      box-shadow: 0 6px 22px rgba(37,211,102,0.12), inset 0 -1px 0 rgba(255,255,255,0.06);
-      pointer-events:auto;
+    .hidden-message::-webkit-scrollbar {
+      width: 6px;
     }
-    .wa-btn.show { transform: translateY(0); opacity:1; }
-    .wa-btn:hover{
-      animation: floaty 2s infinite;
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(37,211,102,0.18);
-    }
-    @keyframes floaty {
-      0%{ transform: translateY(-2px) }
-      50%{ transform: translateY(-6px) }
-      100%{ transform: translateY(-2px) }
+    .hidden-message::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 6px;
     }
 
-    /* controls */
-    .controls{position:absolute;bottom:14px;left:14px;display:flex;gap:10px;align-items:center;pointer-events:auto}
-    .btn-ghost{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;cursor:pointer}
-    .credits{position:absolute;bottom:14px;right:14px;color:var(--muted);font-size:13px}
+    /* WA button */
+    .wa-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: var(--wa);
+      color: #042;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 6px 22px rgba(37,211,102,0.12);
+      transition: all 0.3s ease;
+    }
+    .wa-btn:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(37,211,102,0.2);
+    }
 
-    /* simple reveal for title */
-    .reveal{display:inline-block;transform-origin:bottom center;animation:pop 700ms ease forwards}
-    @keyframes pop{0%{transform:scale(0.6) rotate(-6deg);opacity:0}60%{transform:scale(1.08) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(0deg)}}
-
-    @media (max-width:720px){
-      .card{width:92%}
-      .stage{height:520px}
+    @media (max-width:600px){
+      .greeting h1{ font-size:1.4rem; }
+      .greeting p{ font-size:0.9rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN OVERLAY -->
+  <!-- LOGIN -->
   <div class="overlay" id="loginOverlay">
     <div class="card">
       <h2>Cuma Pacar Aku yang bisa login</h2>
-      <p class="lead">ISINYA PAKE <strong>NAMA LENGKAP</strong><br>PW NYA TANGGAL LAHIR (DDMMYY)</p>
+      <p class="lead">ISINYA PAKE NAMA LENGKAP<br>PW NYA TANGGAL LAHIR (DDMMYY)</p>
       <label>Nama Lengkap</label>
-      <input id="username" type="text" placeholder="kalo gabisa masuk bukan pacar aku" autocomplete="off">
+      <input id="username" type="text" placeholder="Nama lengkap kamu">
       <label>Password</label>
-      <input id="password" type="password" placeholder="isi aja tanggal lahir kamu" autocomplete="off">
+      <input id="password" type="password" placeholder="Tanggal lahir (DDMMYY)">
       <button id="loginBtn">Masuk</button>
     </div>
   </div>
 
-  <!-- MAIN STAGE -->
+  <!-- MAIN -->
   <div class="stage" id="stage" style="display:none">
     <canvas id="fw"></canvas>
     <div class="content">
-      <div class="greeting" id="greetBox">
-        <h1 id="greetTitle">Happy Birthday calon wife</h1>
-        <p id="greetSub">Semoga harimu selalu sama aku terus wlee</p>
-
-        <!-- HIDDEN MESSAGE placeholder -->
-        <div id="hiddenWrapper"></div>
-
+      <div class="greeting">
+        <h1 id="title">Happy Birthday Calon Istri AQU 💖</h1>
+        <p id="subtitle">Semoga harimu selalu sama aku terus wlee </p>
+        <div id="hidden"></div>
       </div>
     </div>
-
-    <div class="controls">
-      <button class="btn-ghost" id="replayBtn">Putar Ulang Petasan</button>
-      <button class="btn-ghost" id="heartBtn">💖 Kirim Cinta</button>
-      <button class="btn-ghost" id="muteBtn">🔊 Mute</button>
-    </div>
-    <div class="credits">Dibuat oleh pacar kamu yang paling sayang sama kamu</div>
   </div>
 
-  <!-- AUDIO (letakkan file mp3 di folder yang sama) -->
+  <!-- AUDIO -->
   <audio id="bgm" src="happy-birthday-254480.mp3" loop preload="auto"></audio>
-  <audio id="fx-fire" src="fireworks-07-419025.mp3" preload="auto"></audio>
-  <audio id="fx-pop" src="fireworks-07-419025.mp3" preload="auto"></audio>
+  <audio id="fx" src="fireworks-07-419025.mp3" preload="auto"></audio>
 
   <script>
-    /* ---------- CONFIG ---------- */
-    const ALLOWED = [
-      {user: 'Nagalen Rayn el Ramdhan', pass: '301009'},
-      {user: 'Suci Salsa Fitriani', pass: '301009'}
+    const allowed = [
+      { user: "Nagalen Rayn el Ramdhan", pass: "301009" },
+      { user: "Suci Salsa Fitriani", pass: "301009" }
     ];
-    const SECRET_CODE = '010924';
-    const HIDDEN_TEXT = `Hallo sayanggg cintaaakuu duniakuuu segalanyaaa bagiii akuuu, gaa kerasaa yaaa kamuuu dahh umurrr seginiii, dahh mauuu nikahh hihi, celamattt ulangg tahunnn yaaa babeee cantikkkk bagerrr solehahhh, akuuu bersyukurrr bangett masihhh bisaa nemeninnn kamuuu sejauhhh iniii, dann akupunnn gapernahh adaa rasaaa bosennn samaaa kamuu tauuu, karnaaa emangg kamuuu tujuann dihidupp akuu hihi.
+    const secret = "010924";
+    const message = `Hallo sayanggg cintaaakuu duniakuuu segalanyaaa bagiii akuuu, gaa kerasaa yaaa kamuuu dahh umurrr seginiii, dahh mauuu nikahh hihi, celamattt ulangg tahunnn yaaa babeee cantikkkk bagerrr solehahhh, akuuu bersyukurrr bangett masihhh bisaa nemeninnn kamuuu sejauhhh iniii, dann akupunnn gapernahh adaa rasaaa bosennn samaaa kamuu tauuu, karnaaa emangg kamuuu tujuann dihidupp akuu hihi.
     Cenenggg gaa akuu bikinnn giniannn hihi, lutuuu yahhh, cenenggg tauuu akuuu bisaa buatinnn iniii buattt kamuu, tapiii akuuu takuttt ngirimmnyaa telattt, tapiii gapapaaa dehhh telattt jugaaa maciii tanggall 30.
     Sayanggg, semogaaa diumurrr kamuu yangg bertambahhh inii kamuuu bisaa wujudinn wishlist kamuuu semuaaa yaa. Kamu bisa wujudin apa yangg kamuu mauu, kamuuu impikannn selamaa inii, akuuu pengennn kamuuu ngerasaa bahagiaaa setiappp waktuuu sayangggg, gapernahh akuu pengenn kamuuu ngerasaaa sedihh, apalagiii sampeee sakitt hati.
     I'm so proud of u babeee!! setelahh beribu ribu kamu ngerasainnn sedihh, kamuu masihh mampuu bertahann sejauhh inii, hebattt lhoo kamuu kerennn bangettt(iyalaaa pacarr rayn) cemogaaa kamuu selaluu jadii orangg yanggg kuattt yaaa sayanggg, gakkuatpunnn gapapaa dengg, orangg adaaa akuu yaa hehe. Akuuu pastiii disiniii selamanyaaaa adaa buattt kamuuu babee, akuu beruntungg bisaa punyaa orangg kayaaa kamuu, maafinn akuu kaloo selamaa iniii akuu belumm bisaa ngasihh yang terbaikk buat kamu, masihh selaluuu bikinn kamuu kecewaa, tapii dibalikkk ituu akuu pastii perbaikinn segalanyaa buatt kamuu.
     
-    I LOVE U SAYANGGG, I LOVE U SO MUCH EVEN THE UNIVERSE DEFEATED BY YOU!! DISINI KO GABISAA EMOTEE YAAA:((`;
+    I LOVE U SAYANGGG, I LOVE U SO MUCH EVEN THE UNIVERSE DEFEATED BY YOU!! 💕💕💕`; 
 
-    // WhatsApp tujuan (nomor kamu)
-    const WA_NUMBER = '6285722250659';
+    const login = document.getElementById("loginOverlay");
+    const stage = document.getElementById("stage");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const bgm = document.getElementById("bgm");
+    const fx = document.getElementById("fx");
+    const canvas = document.getElementById("fw");
+    const ctx = canvas.getContext("2d");
 
-    /* ---------- ELEMENTS ---------- */
-    const loginOverlay = document.getElementById('loginOverlay');
-    const loginBtn = document.getElementById('loginBtn');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
+    document.getElementById("loginBtn").onclick = () => {
+      const u = username.value.trim().toLowerCase();
+      const p = password.value.trim();
+      const ok = allowed.some(a => a.user.toLowerCase() === u && a.pass === p);
+      if (ok) {
+        login.style.display = "none";
+        stage.style.display = "block";
+        bgm.play().catch(()=>{});
+        initFireworks();
+        showSecret();
+      } else alert("Kamu bukan pacarku 😡😡😡");
+    };
 
-    const stage = document.getElementById('stage');
-    const greetTitle = document.getElementById('greetTitle');
-    const greetBox = document.getElementById('greetBox');
-    const hiddenWrapper = document.getElementById('hiddenWrapper');
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
 
-    const bgm = document.getElementById('bgm');
-    const fxFire = document.getElementById('fx-fire');
-    const fxPop = document.getElementById('fx-pop');
-    let audioEnabled = true;
-    let stageVisible = false;
-
-    document.getElementById('muteBtn').addEventListener('click', ()=>{
-      audioEnabled = !audioEnabled;
-      document.getElementById('muteBtn').textContent = audioEnabled? '🔊 Mute' : '🔈 Unmute';
-      if(!audioEnabled){ bgm.pause(); } else { if(stageVisible) bgm.play().catch(()=>{}); }
-    });
-
-    /* ---------- LOGIN ---------- */
-    loginBtn.addEventListener('click', tryLogin);
-    passwordInput.addEventListener('keydown', e=>{ if(e.key==='Enter') tryLogin(); });
-
-    function tryLogin(){
-      const u = usernameInput.value.trim();
-      const p = passwordInput.value.trim();
-      const ok = ALLOWED.some(a=>a.user.toLowerCase() === u.toLowerCase() && a.pass === p);
-      if(ok){
-        loginOverlay.style.display='none';
-        startShow(u);
-        // user-initiated click: play bgm
-        if(audioEnabled){ bgm.currentTime = 0; bgm.play().catch(()=>{}); }
-      } else {
-        alert('FATAL ERROR!! KAMU BUKAN PACARKU!!');
-        passwordInput.value='';
+    let particles = [];
+    function Particle(x,y,color){
+      this.x=x;this.y=y;
+      this.vx=(Math.random()-0.5)*4;
+      this.vy=(Math.random()-1.5)*4;
+      this.alpha=1;
+      this.color=color;
+    }
+    Particle.prototype.update=function(){
+      this.x+=this.vx;
+      this.y+=this.vy;
+      this.alpha-=0.01;
+    }
+    Particle.prototype.draw=function(){
+      ctx.globalAlpha=this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,2,0,Math.PI*2);
+      ctx.fillStyle=this.color;
+      ctx.fill();
+      ctx.globalAlpha=1;
+    }
+    function burst(){
+      const x=Math.random()*canvas.width;
+      const y=Math.random()*canvas.height/2;
+      fx.cloneNode().play();
+      for(let i=0;i<80;i++){
+        particles.push(new Particle(x,y,`hsl(${Math.random()*360},100%,70%)`));
       }
     }
-
-    function startShow(username){
-      stage.style.display='block';
-      stageVisible = true;
-      greetTitle.textContent = `Selamat Ulang Tahun, Sayangkuu Cintaaa Duniakuuu`;
-      greetTitle.classList.add('reveal');
-      initFireworks();
-    }
-
-    function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
-
-    /* ---------- HIDDEN MESSAGE & WA BUTTON ---------- */
-    // Create button that triggers prompt for secret code, then shows message + WA button with animation
-    const secretTrigger = document.createElement('div');
-    secretTrigger.className = 'secret';
-    secretTrigger.style.cursor = 'pointer';
-    secretTrigger.style.marginTop = '12px';
-    secretTrigger.innerHTML = '<span class="lock">Pesan tersembunyi — klik untuk buka</span>';
-    secretTrigger.addEventListener('click', ()=>{
-      const ans = prompt('Masukkan kode rahasia untuk membuka pesan:');
-      if(ans === null) return;
-      if(ans && ans.trim() === SECRET_CODE){
-        revealHiddenMessage();
-      } else {
-        alert('Kode salah, coba tanya pacar kamu');
-      }
-    });
-    greetBox.appendChild(secretTrigger);
-
-    function revealHiddenMessage(){
-      // build container
-      const box = document.createElement('div');
-      box.className = 'hidden-message';
-      box.innerHTML = `<div class="content-inner">${escapeHtml(HIDDEN_TEXT)}</div>`;
-      hiddenWrapper.appendChild(box);
-
-      // create WA button row
-      const waRow = document.createElement('div');
-      waRow.className = 'wa-row';
-      const waBtn = document.createElement('a');
-      waBtn.className = 'wa-btn';
-      waBtn.href = `https://wa.me/085722250659`;
-      waBtn.target = '_blank';
-      waBtn.rel = 'noopener';
-      waBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle" xmlns="http://www.w3.org/2000/svg"><path d=\"M20.52 3.48C18.15 1.11 15.06 0 11.8 0 5.81 0 0.95 4.86 0.95 10.85c0 1.91.5 3.75 1.44 5.36L0 24l8.22-2.29c1.44.4 2.93.61 4.4.61h.01c5.98 0 10.84-4.86 10.84-10.85 0-3.26-1.11-6.36-3.9-8.49z\" fill=\"#fff\"/><path d=\"M17.63 14.5c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15s-.77.97-.95 1.17c-.17.2-.34.22-.64.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.17-.3-.02-.46.13-.61.14-.14.3-.34.45-.51.15-.17.2-.3.3-.5.1-.2 0-.37-.02-.51-.02-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.66-.51l-.56-.01c-.2 0-.52.07-.8.37-.28.3-1.07 1.05-1.07 2.56 0 1.5 1.1 2.95 1.25 3.15.15.2 2.15 3.38 5.22 4.74 3.07 1.36 3.07.9 3.62.84.55-.06 1.77-.72 2.02-1.41.25-.69.25-1.28.18-1.41-.07-.13-.27-.2-.57-.35z\" fill=\"#042\"/></svg> <span style="display:inline-block;vertical-align:middle">Balas via WhatsApp &nbsp;💬</span>';
-      waRow.appendChild(waBtn);
-      box.appendChild(waRow);
-
-      // reveal with animation
-      setTimeout(()=>{ box.classList.add('show'); }, 40);
-      setTimeout(()=>{ waBtn.classList.add('show'); }, 450);
-    }
-
-    // helper to escape and preserve line breaks as HTML
-    function escapeHtml(text){
-      const d = document.createElement('div');
-      d.textContent = text;
-      return d.innerHTML.replace(/\n/g, '<br>');
-    }
-
-    /* ---------- FIREWORKS (canvas) ---------- */
-    const canvas = document.getElementById('fw');
-    let ctx, W, H, particles = [], rockets = [], animationId;
-
-    function initFireworks(){
-      canvas.width = W = canvas.clientWidth * devicePixelRatio;
-      canvas.height = H = canvas.clientHeight * devicePixelRatio;
-      canvas.style.width = canvas.clientWidth + 'px';
-      canvas.style.height = canvas.clientHeight + 'px';
-      ctx = canvas.getContext('2d');
-      ctx.scale(devicePixelRatio, devicePixelRatio);
-
-      bigShow();
-      setInterval(()=>{ if(Math.random()<0.6) launch(); }, 900);
-      loop();
-    }
-
     function loop(){
-      animationId = requestAnimationFrame(loop);
-      ctx.fillStyle = 'rgba(5,8,18,0.25)';
-      ctx.fillRect(0,0,canvas.clientWidth, canvas.clientHeight);
-
-      for(let i=rockets.length-1;i>=0;i--){ rockets[i].update(); rockets[i].draw(); if(rockets[i].dead) rockets.splice(i,1); }
-      for(let i=particles.length-1;i>=0;i--){ particles[i].update(); particles[i].draw(); if(particles[i].dead) particles.splice(i,1); }
+      ctx.fillStyle="rgba(0,0,0,0.2)";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      particles.forEach(p=>p.update());
+      particles.forEach(p=>p.draw());
+      particles=particles.filter(p=>p.alpha>0);
+      requestAnimationFrame(loop);
+    }
+    function initFireworks(){
+      loop();
+      setInterval(burst,1500);
     }
 
-    function launch(){
-      const x = Math.random()*(canvas.clientWidth*0.8)+canvas.clientWidth*0.1;
-      const y = canvas.clientHeight + 10;
-      rockets.push(new Rocket(x, y, Math.random()*-6 - 7));
+    function showSecret(){
+      const div=document.getElementById("hidden");
+      const btn=document.createElement("button");
+      btn.textContent="💌 Lihat Pesan Rahasia";
+      btn.style.marginTop="10px";
+      btn.onclick=()=>{
+        const code=prompt("Masukkan kode rahasia:");
+        if(code===secret){
+          const msg=document.createElement("div");
+          msg.className="hidden-message";
+          msg.textContent=message;
+          const wa=document.createElement("a");
+          wa.href="https://wa.me/6285722250659";
+          wa.target="_blank";
+          wa.className="wa-btn";
+          wa.textContent=" Balas via WhatsApp";
+          div.innerHTML="";
+          div.appendChild(msg);
+          div.appendChild(wa);
+        } else alert("Kode salah sayang, coba tanya pacarmu ");
+      };
+      div.appendChild(btn);
     }
-
-    function bigShow(){
-      for(let i=0;i<8;i++){
-        setTimeout(()=>{
-          const x = (canvas.clientWidth/8)*(i+0.5) + (Math.random()*40-20);
-          rockets.push(new Rocket(x, canvas.clientHeight+10, Math.random()*-8 - 9, true));
-        }, i*250);
-      }
-    }
-
-    function burstAt(x,y,count=40){
-      for(let i=0;i<count;i++) particles.push(new Particle(x, y, (Math.random()*Math.PI*2), (Math.random()*3+1), randomColor()));
-    }
-
-    function randomColor(){
-      const palette = ['#ff6b6b','#ffd166','#4fc1ff','#a29bfe','#ff9aa2','#c7f9cc'];
-      return palette[Math.floor(Math.random()*palette.length)];
-    }
-
-    function Rocket(x,y,vy,big=false){ this.x=x;this.y=y;this.vx=(Math.random()*2-1);this.vy=vy;this.big=big;this.dead=false; }
-    Rocket.prototype.update=function(){ this.x+=this.vx;this.y+=this.vy;this.vy+=0.14; if(this.vy>-1.6){this.explode();this.dead=true;} }
-    Rocket.prototype.draw=function(){ ctx.beginPath();ctx.arc(this.x,this.y,2+(this.big?1.6:0),0,Math.PI*2);ctx.fillStyle='white';ctx.fill(); }
-    Rocket.prototype.explode=function(){ const count=this.big?120:48;const hue=randomColor();for(let i=0;i<count;i++)particles.push(new Particle(this.x,this.y,(i/count)*Math.PI*2,Math.random()*4+1,hue));for(let i=0;i<12;i++)particles.push(new Particle(this.x,this.y,Math.random()*Math.PI*2,Math.random()*1.8+0.5,'#fff')); if(audioEnabled) playFx('fire'); }
-
-    function Particle(x,y,angle,speed,color){ this.x=x;this.y=y;this.vx=Math.cos(angle)*speed;this.vy=Math.sin(angle)*speed;this.color=color;this.alpha=1;this.decay=0.02+Math.random()*0.02;this.dead=false;this.size=1+Math.random()*2; }
-    Particle.prototype.update=function(){ this.vx*=0.99;this.vy*=0.99;this.vy+=0.02;this.x+=this.vx;this.y+=this.vy;this.alpha-=this.decay;if(this.alpha<=0)this.dead=true; }
-    Particle.prototype.draw=function(){ ctx.globalAlpha=Math.max(0,this.alpha);ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fillStyle=this.color;ctx.fill();ctx.globalAlpha=1; }
-
-    window.addEventListener('resize', ()=>{ if(canvas.width){ cancelAnimationFrame(animationId); initFireworks(); } });
-    window.burstAt = burstAt;
-
-    /* ---------- SFX helpers ---------- */
-    function playFx(type){
-      if(!audioEnabled) return;
-      if(type==='fire'){
-        const s = fxFire.cloneNode(); s.volume = 0.75; s.play().catch(()=>{});
-      } else if(type==='pop'){
-        const s = fxPop.cloneNode(); s.volume = 0.6; s.play().catch(()=>{});
-      }
-    }
-
-    // heart button burst
-    document.getElementById('heartBtn').addEventListener('click', ()=>{
-      burstAt(Math.random()*canvas.width, Math.random()*canvas.height/2 + canvas.height/4, 20);
-      if(audioEnabled) playFx('pop');
-    });
-    document.getElementById('replayBtn').addEventListener('click', ()=>{ bigShow(); if(audioEnabled) playFx('fire'); });
-
-    /* ---------- END ---------- */
   </script>
 </body>
 </html>
