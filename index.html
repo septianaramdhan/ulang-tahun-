@@ -203,100 +203,151 @@
     
     I LOVE U SAYANGGG, I LOVE U SO MUCH EVEN THE UNIVERSE DEFEATED BY YOU!! 💕💕💕`; 
 
-    const login = document.getElementById("loginOverlay");
-    const stage = document.getElementById("stage");
-    const username = document.getElementById("username");
-    const password = document.getElementById("password");
-    const bgm = document.getElementById("bgm");
-    const fx = document.getElementById("fx");
-    const canvas = document.getElementById("fw");
-    const ctx = canvas.getContext("2d");
+     const login = document.getElementById("loginOverlay");
+  const stage = document.getElementById("stage");
+  const username = document.getElementById("username");
+  const password = document.getElementById("password");
+  const bgm = document.getElementById("bgm");
+  const fx = document.getElementById("fx");
+  const canvas = document.getElementById("fw");
+  const ctx = canvas.getContext("2d");
 
-    document.getElementById("loginBtn").onclick = () => {
-      const u = username.value.trim().toLowerCase();
-      const p = password.value.trim();
-      const ok = allowed.some(a => a.user.toLowerCase() === u && a.pass === p);
-      if (ok) {
-        login.style.display = "none";
-        stage.style.display = "block";
-        bgm.play().catch(()=>{});
-        initFireworks();
-        showSecret();
-      } else alert("Kamu bukan pacarku 😡😡😡");
-    };
+  document.getElementById("loginBtn").onclick = () => {
+    const u = username.value.trim().toLowerCase();
+    const p = password.value.trim();
+    const ok = allowed.some(a => a.user.toLowerCase() === u && a.pass === p);
+    if (ok) {
+      login.style.display = "none";
+      stage.style.display = "block";
+      bgm.play().catch(()=>{});
+      initFireworks();
+      showSecret();
+    } else alert("Kamu bukan pacarku 😡😡😡");
+  };
 
-    function resizeCanvas() {
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    setTimeout(() => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    }, 500);
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener("touchstart", () => {
+    if (bgm.paused) bgm.play().catch(() => {});
+  });
 
-    let particles = [];
-    function Particle(x,y,color){
-      this.x=x;this.y=y;
-      this.vx=(Math.random()-0.5)*4;
-      this.vy=(Math.random()-1.5)*4;
-      this.alpha=1;
-      this.color=color;
-    }
-    Particle.prototype.update=function(){
-      this.x+=this.vx;
-      this.y+=this.vy;
-      this.alpha-=0.01;
-    }
-    Particle.prototype.draw=function(){
-      ctx.globalAlpha=this.alpha;
-      ctx.beginPath();
-      ctx.arc(this.x,this.y,2,0,Math.PI*2);
-      ctx.fillStyle=this.color;
-      ctx.fill();
-      ctx.globalAlpha=1;
-    }
-    function burst(){
-      const x=Math.random()*canvas.width;
-      const y=Math.random()*canvas.height/2;
-      fx.cloneNode().play();
-      for(let i=0;i<80;i++){
-        particles.push(new Particle(x,y,`hsl(${Math.random()*360},100%,70%)`));
-      }
-    }
-    function loop(){
-      ctx.fillStyle="rgba(0,0,0,0.2)";
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      particles.forEach(p=>p.update());
-      particles.forEach(p=>p.draw());
-      particles=particles.filter(p=>p.alpha>0);
-      requestAnimationFrame(loop);
-    }
-    function initFireworks(){
-      loop();
-      setInterval(burst,1500);
-    }
+  let particles = [];
+  function Particle(x,y,color){
+    this.x=x;this.y=y;
+    this.vx=(Math.random()-0.5)*4;
+    this.vy=(Math.random()-1.5)*4;
+    this.alpha=1;
+    this.color=color;
+  }
+  Particle.prototype.update=function(){
+    this.x+=this.vx;
+    this.y+=this.vy;
+    this.alpha-=0.01;
+  }
+  Particle.prototype.draw=function(){
+    ctx.globalAlpha=this.alpha;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,2,0,Math.PI*2);
+    ctx.fillStyle=this.color;
+    ctx.fill();
+    ctx.globalAlpha=1;
+  }
 
-    function showSecret(){
-      const div=document.getElementById("hidden");
-      const btn=document.createElement("button");
-      btn.textContent="💌 Lihat Pesan Rahasia";
-      btn.style.marginTop="10px";
-      btn.onclick=()=>{
-        const code=prompt("Masukkan kode rahasia:");
-        if(code===secret){
-          const msg=document.createElement("div");
-          msg.className="hidden-message";
-          msg.textContent=message;
-          const wa=document.createElement("a");
-          wa.href="https://wa.me/6285722250659";
-          wa.target="_blank";
-          wa.className="wa-btn";
-          wa.textContent=" Balas via WhatsApp";
-          div.innerHTML="";
-          div.appendChild(msg);
-          div.appendChild(wa);
-        } else alert("Kode salah sayang, coba tanya pacarmu ");
-      };
-      div.appendChild(btn);
+  function burst(){
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height / 2;
+    try { fx.cloneNode().play(); } catch(e) {}
+    for (let i = 0; i < 80; i++) {
+      particles.push(new Particle(x, y, `hsl(${Math.random() * 360},100%,70%)`));
     }
+  }
+
+  function loop(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>p.update());
+    particles.forEach(p=>p.draw());
+    particles=particles.filter(p=>p.alpha>0);
+    requestAnimationFrame(loop);
+  }
+
+  function initFireworks(){
+    loop();
+    setInterval(burst,1500);
+    const canvas = document.getElementById('fw');
+
+  }
+
+  function showSecret(){
+    const div=document.getElementById("hidden");
+
+    // tombol lucu di kanan bawah 💚
+    const controls = document.createElement("div");
+    controls.style.position="fixed";
+    controls.style.bottom="16px";
+    controls.style.right="16px";
+    controls.style.display="flex";
+    controls.style.flexDirection="column";
+    controls.style.gap="10px";
+    controls.style.zIndex="9999";
+
+    const soundBtn=document.createElement("button");
+    soundBtn.textContent="🔊";
+    soundBtn.style.background="#25D366";
+    soundBtn.style.border="none";
+    soundBtn.style.borderRadius="50%";
+    soundBtn.style.width="50px";
+    soundBtn.style.height="50px";
+    soundBtn.style.fontSize="22px";
+    soundBtn.onclick=()=>{
+      if(bgm.paused){bgm.play(); soundBtn.textContent="🔊";}
+      else {bgm.pause(); soundBtn.textContent="🔇";}
+    };
+
+    const fwBtn=document.createElement("button");
+    fwBtn.textContent="🎇";
+    fwBtn.style.background="#25D366";
+    fwBtn.style.border="none";
+    fwBtn.style.borderRadius="50%";
+    fwBtn.style.width="50px";
+    fwBtn.style.height="50px";
+    fwBtn.style.fontSize="22px";
+    fwBtn.onclick=()=>burst();
+
+    controls.appendChild(soundBtn);
+    controls.appendChild(fwBtn);
+    document.body.appendChild(controls);
+
+    // tombol pesan
+    const btn=document.createElement("button");
+    btn.textContent="💌 Lihat Pesan Rahasia";
+    btn.style.marginTop="10px";
+    btn.onclick=()=>{
+      const code=prompt("Masukkan kode rahasia:");
+      if(code===secret){
+        const msg=document.createElement("div");
+        msg.className="hidden-message";
+        msg.textContent=message;
+        const wa=document.createElement("a");
+        wa.href="https://wa.me/6285722250659";
+        wa.target="_blank";
+        wa.className="wa-btn";
+        wa.textContent=" Balas via WhatsApp";
+        div.innerHTML="";
+        div.appendChild(msg);
+        div.appendChild(wa);
+      } else alert("Kode salah, coba tanya pacarmu");
+    };
+    div.appendChild(btn);
+  }
   </script>
 </body>
 </html>
